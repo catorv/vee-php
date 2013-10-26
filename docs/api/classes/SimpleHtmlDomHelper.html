@@ -1,0 +1,2002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>API Documentation</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+    <script src="http://code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">API Documentation</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                    <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                    </ul>
+                    </li>
+                    <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                    <i class="icon-list-alt"></i>&#160;Errors
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                    <i class="icon-list-alt"></i>&#160;Markers
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-245420854"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-245420854" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/ICache.html">ICache</a></li>
+                                                    <li class="interface"><a href="../classes/Debugger.html">Debugger</a></li>
+                                                    <li class="interface"><a href="../classes/ILog.html">ILog</a></li>
+                                                                                                    <li class="class"><a href="../classes/FileCache.html">FileCache</a></li>
+                                                    <li class="class"><a href="../classes/MemcacheCache.html">MemcacheCache</a></li>
+                                                    <li class="class"><a href="../classes/V.html">V</a></li>
+                                                    <li class="class"><a href="../classes/Controller.html">Controller</a></li>
+                                                    <li class="class"><a href="../classes/Language.html">Language</a></li>
+                                                    <li class="class"><a href="../classes/AResponse.html">AResponse</a></li>
+                                                    <li class="class"><a href="../classes/VeeBase.html">VeeBase</a></li>
+                                                    <li class="class"><a href="../classes/DbMysqlAdapter.html">DbMysqlAdapter</a></li>
+                                                    <li class="class"><a href="../classes/DbPdoMysqlAdapter.html">DbPdoMysqlAdapter</a></li>
+                                                    <li class="class"><a href="../classes/Db.html">Db</a></li>
+                                                    <li class="class"><a href="../classes/ADbAdapter.html">ADbAdapter</a></li>
+                                                    <li class="class"><a href="../classes/DbPdoSuperAdapter.html">DbPdoSuperAdapter</a></li>
+                                                    <li class="class"><a href="../classes/DbQuery.html">DbQuery</a></li>
+                                                    <li class="class"><a href="../classes/DbEntity.html">DbEntity</a></li>
+                                                    <li class="class"><a href="../classes/FirephpDebugger.html">FirephpDebugger</a></li>
+                                                    <li class="class"><a href="../classes/HtmlDebugger.html">HtmlDebugger</a></li>
+                                                    <li class="class"><a href="../classes/LogDebugger.html">LogDebugger</a></li>
+                                                    <li class="class"><a href="../classes/TextDebugger.html">TextDebugger</a></li>
+                                                    <li class="class"><a href="../classes/ArrayHelper.html">ArrayHelper</a></li>
+                                                    <li class="class"><a href="../classes/AuthHelper.html">AuthHelper</a></li>
+                                                    <li class="class"><a href="../classes/CorrectHelper.html">CorrectHelper</a></li>
+                                                    <li class="class"><a href="../classes/CrypterHelper.html">CrypterHelper</a></li>
+                                                    <li class="class"><a href="../classes/CsvHelper.html">CsvHelper</a></li>
+                                                    <li class="class"><a href="../classes/CurlHelper.html">CurlHelper</a></li>
+                                                    <li class="class"><a href="../classes/DataHelper.html">DataHelper</a></li>
+                                                    <li class="class"><a href="../classes/DbEntityHelper.html">DbEntityHelper</a></li>
+                                                    <li class="class"><a href="../classes/ExtjsHelper.html">ExtjsHelper</a></li>
+                                                    <li class="class"><a href="../classes/HttpHelper.html">HttpHelper</a></li>
+                                                    <li class="class"><a href="../classes/POP3.html">POP3</a></li>
+                                                    <li class="class"><a href="../classes/SMTP.html">SMTP</a></li>
+                                                    <li class="class"><a href="../classes/MailHelper.html">MailHelper</a></li>
+                                                    <li class="class"><a href="../classes/phpmailerException.html">phpmailerException</a></li>
+                                                    <li class="class"><a href="../classes/OAuthHelper.html">OAuthHelper</a></li>
+                                                    <li class="class"><a href="../classes/SecurityHelper.html">SecurityHelper</a></li>
+                                                    <li class="class"><a href="../classes/SimpleHtmlDomHelper.html">SimpleHtmlDomHelper</a></li>
+                                                    <li class="class"><a href="../classes/SimpleHtmlDomNode.html">SimpleHtmlDomNode</a></li>
+                                                    <li class="class"><a href="../classes/StringHelper.html">StringHelper</a></li>
+                                                    <li class="class"><a href="../classes/UploadHelper.html">UploadHelper</a></li>
+                                                    <li class="class"><a href="../classes/ValidateHelper.html">ValidateHelper</a></li>
+                                                    <li class="class"><a href="../classes/DbLog.html">DbLog</a></li>
+                                                    <li class="class"><a href="../classes/FileLog.html">FileLog</a></li>
+                                                    <li class="class"><a href="../classes/MemcacheLog.html">MemcacheLog</a></li>
+                                                    <li class="class"><a href="../classes/CsvResponse.html">CsvResponse</a></li>
+                                                    <li class="class"><a href="../classes/ExcelResponse.html">ExcelResponse</a></li>
+                                                    <li class="class"><a href="../classes/ExtjsResponse.html">ExtjsResponse</a></li>
+                                                    <li class="class"><a href="../classes/HtmlResponse.html">HtmlResponse</a></li>
+                                                    <li class="class"><a href="../classes/JsonResponse.html">JsonResponse</a></li>
+                                                    <li class="class"><a href="../classes/NullResponse.html">NullResponse</a></li>
+                                                    <li class="class"><a href="../classes/SmartyResponse.html">SmartyResponse</a></li>
+                                                    <li class="class"><a href="../classes/VeeResponse.html">VeeResponse</a></li>
+                                                    <li class="class"><a href="../classes/XmlResponse.html">XmlResponse</a></li>
+                                                    <li class="class"><a href="../classes/C.html">C</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/default.html">\</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\</small>SimpleHtmlDomHelper</h1>
+                    <p><em>SimpleHtmlDom辅助器</em></p>
+                    <p>本辅助器代码根据 Simple Html Dom 项目修改而来，</p>
+
+<p>Simple Html Dom 项目的版本及版权信息如下：</p>
+
+<p>Version: 1.11 ($Rev: 175 $)</p>
+
+<p>Author: S.C. Chen <a href="&#x6d;&#97;&#x69;&#108;&#x74;&#111;&#x3a;&#109;e&#x35;&#55;&#x38;&#48;&#x32;&#50;&#x40;&#103;m&#x61;&#105;&#x6c;&#46;&#x63;&#111;&#x6d;">&#109;e&#x35;&#55;&#x38;&#48;&#x32;&#50;&#x40;&#103;m&#x61;&#105;&#x6c;&#46;&#x63;&#111;&#x6d;</a></p>
+
+<p>Acknowledge: Jose Solorzano (https://sourceforge.net/projects/php-html/)</p>
+
+<p>Contributions by:</p>
+
+<pre><code>Yousuke Kumakura (Attribute filters)
+Vadim Voituk (Negative indexes supports of "find" method)
+Antcs (Constructor with automatically load contents either text or file/url)
+</code></pre>
+
+<p>Licensed under The MIT License</p>
+
+<p>Redistributions of files must retain the above copyright notice.</p>
+
+
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/SimpleHtmlDomHelper.html#method___destruct" class="">__destruct()</a><br />
+                                                                    <a href="../classes/SimpleHtmlDomHelper.html#method_getInstance" class="">getInstance()</a><br />
+                                                                    <a href="../classes/SimpleHtmlDomHelper.html#method_load" class="">load()</a><br />
+                                                                    <a href="../classes/SimpleHtmlDomHelper.html#method_loadFromFile" class="">loadFromFile()</a><br />
+                                                                    <a href="../classes/SimpleHtmlDomHelper.html#method_setCallback" class="">setCallback()</a><br />
+                                                                    <a href="../classes/SimpleHtmlDomHelper.html#method_removeCallback" class="">removeCallback()</a><br />
+                                                                    <a href="../classes/SimpleHtmlDomHelper.html#method_save" class="">save()</a><br />
+                                                                    <a href="../classes/SimpleHtmlDomHelper.html#method_find" class="">find()</a><br />
+                                                                    <a href="../classes/SimpleHtmlDomHelper.html#method_clear" class="">clear()</a><br />
+                                                                    <a href="../classes/SimpleHtmlDomHelper.html#method_restoreNoise" class="">restoreNoise()</a><br />
+                                                                    <a href="../classes/SimpleHtmlDomHelper.html#method___toString" class="">__toString()</a><br />
+                                                                    <a href="../classes/SimpleHtmlDomHelper.html#method___get" class="">__get()</a><br />
+                                                                    <a href="../classes/SimpleHtmlDomHelper.html#method_childNodes" class="">childNodes()</a><br />
+                                                                    <a href="../classes/SimpleHtmlDomHelper.html#method_firstChild" class="">firstChild()</a><br />
+                                                                    <a href="../classes/SimpleHtmlDomHelper.html#method_lastChild" class="">lastChild()</a><br />
+                                                                    <a href="../classes/SimpleHtmlDomHelper.html#method_getElementById" class="">getElementById()</a><br />
+                                                                    <a href="../classes/SimpleHtmlDomHelper.html#method_getElementsById" class="">getElementsById()</a><br />
+                                                                    <a href="../classes/SimpleHtmlDomHelper.html#method_getElementByTagName" class="">getElementByTagName()</a><br />
+                                                                    <a href="../classes/SimpleHtmlDomHelper.html#method_getElementsByTagName" class="">getElementsByTagName()</a><br />
+                                                                    <a href="../classes/SimpleHtmlDomHelper.html#method_loadFile" class="">loadFile()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/SimpleHtmlDomHelper.html#property_root" class="">$root</a><br />
+                                                                    <a href="../classes/SimpleHtmlDomHelper.html#property_nodes" class="">$nodes</a><br />
+                                                                    <a href="../classes/SimpleHtmlDomHelper.html#property_callback" class="">$callback</a><br />
+                                                                    <a href="../classes/SimpleHtmlDomHelper.html#property_lowercase" class="">$lowercase</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <a href="../classes/SimpleHtmlDomHelper.html#method_prepare" class="">prepare()</a><br />
+                                                                    <a href="../classes/SimpleHtmlDomHelper.html#method_parse" class="">parse()</a><br />
+                                                                    <a href="../classes/SimpleHtmlDomHelper.html#method_readTag" class="">readTag()</a><br />
+                                                                    <a href="../classes/SimpleHtmlDomHelper.html#method_parseAttr" class="">parseAttr()</a><br />
+                                                                    <a href="../classes/SimpleHtmlDomHelper.html#method_linkNodes" class="">linkNodes()</a><br />
+                                                                    <a href="../classes/SimpleHtmlDomHelper.html#method_asTextNode" class="">asTextNode()</a><br />
+                                                                    <a href="../classes/SimpleHtmlDomHelper.html#method_skip" class="">skip()</a><br />
+                                                                    <a href="../classes/SimpleHtmlDomHelper.html#method_copySkip" class="">copySkip()</a><br />
+                                                                    <a href="../classes/SimpleHtmlDomHelper.html#method_copyUntil" class="">copyUntil()</a><br />
+                                                                    <a href="../classes/SimpleHtmlDomHelper.html#method_copyUntilChar" class="">copyUntilChar()</a><br />
+                                                                    <a href="../classes/SimpleHtmlDomHelper.html#method_copyUntilCharEscape" class="">copyUntilCharEscape()</a><br />
+                                                                    <a href="../classes/SimpleHtmlDomHelper.html#method_removeNoise" class="">removeNoise()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/SimpleHtmlDomHelper.html#property_pos" class="">$pos</a><br />
+                                                                    <a href="../classes/SimpleHtmlDomHelper.html#property_doc" class="">$doc</a><br />
+                                                                    <a href="../classes/SimpleHtmlDomHelper.html#property_char" class="">$char</a><br />
+                                                                    <a href="../classes/SimpleHtmlDomHelper.html#property_size" class="">$size</a><br />
+                                                                    <a href="../classes/SimpleHtmlDomHelper.html#property_cursor" class="">$cursor</a><br />
+                                                                    <a href="../classes/SimpleHtmlDomHelper.html#property_parent" class="">$parent</a><br />
+                                                                    <a href="../classes/SimpleHtmlDomHelper.html#property_noise" class="">$noise</a><br />
+                                                                    <a href="../classes/SimpleHtmlDomHelper.html#property_token_blank" class="">$token_blank</a><br />
+                                                                    <a href="../classes/SimpleHtmlDomHelper.html#property_token_equal" class="">$token_equal</a><br />
+                                                                    <a href="../classes/SimpleHtmlDomHelper.html#property_token_slash" class="">$token_slash</a><br />
+                                                                    <a href="../classes/SimpleHtmlDomHelper.html#property_token_attr" class="">$token_attr</a><br />
+                                                                    <a href="../classes/SimpleHtmlDomHelper.html#property_self_closing_tags" class="">$self_closing_tags</a><br />
+                                                                    <a href="../classes/SimpleHtmlDomHelper.html#property_block_tags" class="">$block_tags</a><br />
+                                                                    <a href="../classes/SimpleHtmlDomHelper.html#property_optional_closing_tags" class="">$optional_closing_tags</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <a href="../classes/SimpleHtmlDomHelper.html#method___construct" class="">__construct()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No private properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/helpers.SimpleHtmlDomHelper.class.php.html"><div class="path-wrapper">helpers/SimpleHtmlDomHelper.class.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">\vee-php\helpers</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                    <div class="namespace-wrapper">\SimpleHtmlDomHelper</div>
+                            </dd>
+
+                        
+                        
+                                                                            <dt>See also</dt>
+                                                                                    <dd><a href="http://sourceforge.net/projects/simplehtmldom/"><div class="namespace-wrapper">http://sourceforge.net/projects/simplehtmldom/</div></a></dd>
+                                                    
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr><td colspan="2"><em>None found</em></td></tr>
+                                        </table>
+                </aside>
+            </div>
+
+                        
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_root" name="property_root" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$root</h3>
+                <pre class="signature">$root</pre>
+                <p><em></em></p>
+                
+
+
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_nodes" name="property_nodes" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$nodes</h3>
+                <pre class="signature">$nodes</pre>
+                <p><em></em></p>
+                
+
+
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_callback" name="property_callback" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$callback</h3>
+                <pre class="signature">$callback</pre>
+                <p><em></em></p>
+                
+
+
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_lowercase" name="property_lowercase" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$lowercase</h3>
+                <pre class="signature">$lowercase</pre>
+                <p><em></em></p>
+                
+
+
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_pos" name="property_pos" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$pos</h3>
+                <pre class="signature">$pos</pre>
+                <p><em></em></p>
+                
+
+
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_doc" name="property_doc" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$doc</h3>
+                <pre class="signature">$doc</pre>
+                <p><em></em></p>
+                
+
+
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_char" name="property_char" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$char</h3>
+                <pre class="signature">$char</pre>
+                <p><em></em></p>
+                
+
+
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_size" name="property_size" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$size</h3>
+                <pre class="signature">$size</pre>
+                <p><em></em></p>
+                
+
+
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_cursor" name="property_cursor" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$cursor</h3>
+                <pre class="signature">$cursor</pre>
+                <p><em></em></p>
+                
+
+
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_parent" name="property_parent" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$parent</h3>
+                <pre class="signature">$parent</pre>
+                <p><em></em></p>
+                
+
+
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_noise" name="property_noise" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$noise</h3>
+                <pre class="signature">$noise</pre>
+                <p><em></em></p>
+                
+
+
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_token_blank" name="property_token_blank" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$token_blank</h3>
+                <pre class="signature">$token_blank</pre>
+                <p><em></em></p>
+                
+
+
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_token_equal" name="property_token_equal" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$token_equal</h3>
+                <pre class="signature">$token_equal</pre>
+                <p><em></em></p>
+                
+
+
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_token_slash" name="property_token_slash" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$token_slash</h3>
+                <pre class="signature">$token_slash</pre>
+                <p><em></em></p>
+                
+
+
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_token_attr" name="property_token_attr" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$token_attr</h3>
+                <pre class="signature">$token_attr</pre>
+                <p><em></em></p>
+                
+
+
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_self_closing_tags" name="property_self_closing_tags" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$self_closing_tags</h3>
+                <pre class="signature">$self_closing_tags</pre>
+                <p><em></em></p>
+                
+
+
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_block_tags" name="property_block_tags" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$block_tags</h3>
+                <pre class="signature">$block_tags</pre>
+                <p><em></em></p>
+                
+
+
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_optional_closing_tags" name="property_optional_closing_tags" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$optional_closing_tags</h3>
+                <pre class="signature">$optional_closing_tags</pre>
+                <p><em></em></p>
+                
+
+
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___destruct" name="method___destruct" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__destruct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__destruct()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getInstance" name="method_getInstance" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getInstance()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getInstance(string <span class="argument">$str</span>) : \SimpleHtmlDomHelper</pre>
+                <p><em>返回 SimpleHtmlDomHelper 实例</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$str</td>
+                                <td><p>需要被解析的HTML字符串或URL地址</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/SimpleHtmlDomHelper.html">\SimpleHtmlDomHelper</a>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_load" name="method_load" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">load()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">load(string <span class="argument">$str</span>, boolean <span class="argument">$lowercase</span>) : \unknown_type</pre>
+                <p><em>load html from string</em></p>
+                <p>从字符串中载入HTML内容</p>
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$str</td>
+                                <td><p>HTML字符串</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$lowercase</td>
+                                <td><p>是否使用小写字母</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \unknown_type
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_loadFromFile" name="method_loadFromFile" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">loadFromFile()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">loadFromFile()</pre>
+                <p><em>load html from file</em></p>
+                <p>从文件中装载HTML内容,参数内容同函数file_get_contents()</p>
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setCallback" name="method_setCallback" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setCallback()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setCallback( <span class="argument">$functionName</span>)</pre>
+                <p><em>set callback function</em></p>
+                <p>设置回调函数</p>
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$functionName</td>
+                                <td>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_removeCallback" name="method_removeCallback" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">removeCallback()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">removeCallback()</pre>
+                <p><em>remove callback function</em></p>
+                <p>删除回调函数</p>
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_save" name="method_save" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">save()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">save(string <span class="argument">$filepath</span>) : string</pre>
+                <p><em>save dom as string</em></p>
+                <p>保存DOM为字符串,即将DOM对象序列化成HTML文本</p>
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$filepath</td>
+                                <td><p>文件名,如果指定$filepath,则保存HTML文件到该文件中</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>返回序列化后的HTML文本,无论是否指定$filepath</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_find" name="method_find" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">find()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">find(string <span class="argument">$selector</span>, int <span class="argument">$idx</span>) : \SimpleHtmlDomNode</pre>
+                <p><em>find dom node by css selector</em></p>
+                <p>用CSS选择器查找元素,如果$idx不等于null,则返回所有匹配的就元素节点</p>
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$selector</td>
+                                <td><p>CSS选择器</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>int</td>
+                                <td>$idx</td>
+                                <td><p>如果指定该索引值,则返回第$idx个节点</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/SimpleHtmlDomNode.html">\SimpleHtmlDomNode</a>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_clear" name="method_clear" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">clear()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">clear()</pre>
+                <p><em>clean up memory due to php5 circular references memory leak.</em></p>
+                <p>..</p>
+
+<p>清除内存</p>
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_restoreNoise" name="method_restoreNoise" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">restoreNoise()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">restoreNoise(string <span class="argument">$text</span>) : string</pre>
+                <p><em>restore noise to html content</em></p>
+                <p>恢复HTML内容中的干扰因素</p>
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$text</td>
+                                <td><p>HTML内容字符串</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___toString" name="method___toString" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__toString()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__toString()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___get" name="method___get" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__get()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__get( <span class="argument">$name</span>)</pre>
+                <p><em></em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$name</td>
+                                <td>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_childNodes" name="method_childNodes" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">childNodes()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">childNodes( <span class="argument">$idx</span>)</pre>
+                <p><em></em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$idx</td>
+                                <td>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_firstChild" name="method_firstChild" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">firstChild()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">firstChild()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_lastChild" name="method_lastChild" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">lastChild()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">lastChild()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getElementById" name="method_getElementById" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getElementById()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getElementById( <span class="argument">$id</span>)</pre>
+                <p><em></em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$id</td>
+                                <td>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getElementsById" name="method_getElementsById" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getElementsById()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getElementsById( <span class="argument">$id</span>,  <span class="argument">$idx</span>)</pre>
+                <p><em></em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$id</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$idx</td>
+                                <td>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getElementByTagName" name="method_getElementByTagName" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getElementByTagName()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getElementByTagName( <span class="argument">$name</span>)</pre>
+                <p><em></em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$name</td>
+                                <td>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getElementsByTagName" name="method_getElementsByTagName" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getElementsByTagName()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getElementsByTagName( <span class="argument">$name</span>,  <span class="argument">$idx</span>)</pre>
+                <p><em></em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$name</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$idx</td>
+                                <td>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_loadFile" name="method_loadFile" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">loadFile()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">loadFile()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_prepare" name="method_prepare" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">prepare()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">prepare(string <span class="argument">$str</span>, boolean <span class="argument">$lowercase</span>)</pre>
+                <p><em>prepare HTML data and init everything</em></p>
+                <p>预处理HTML数据并初始化对象属性</p>
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$str</td>
+                                <td><p>HTML数据</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$lowercase</td>
+                                <td><p>是否使用小写字母</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_parse" name="method_parse" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">parse()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">parse() : boolean</pre>
+                <p><em>parse html content</em></p>
+                <p>解析HTML内容</p>
+
+
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_readTag" name="method_readTag" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">readTag()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">readTag() : boolean</pre>
+                <p><em>read tag info</em></p>
+                <p>读取标签信息</p>
+
+
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_parseAttr" name="method_parseAttr" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">parseAttr()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">parseAttr(\SimpleHtmlDomNode <span class="argument">$node</span>, string <span class="argument">$name</span>, array <span class="argument">$space</span>)</pre>
+                <p><em>parse attributes</em></p>
+                <p>解析属性</p>
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/SimpleHtmlDomNode.html">\SimpleHtmlDomNode</a></td>
+                                <td>$node</td>
+                                <td><p>节点</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$name</td>
+                                <td><p>属性名</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$space</td>
+                                <td><p>空白字符</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_linkNodes" name="method_linkNodes" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">linkNodes()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">linkNodes(\SimpleHtmlDomNode <span class="argument">$node</span>, boolean <span class="argument">$isChild</span>)</pre>
+                <p><em>link node&#039;s parent</em></p>
+                <p>链接节点的父节点</p>
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/SimpleHtmlDomNode.html">\SimpleHtmlDomNode</a></td>
+                                <td>$node</td>
+                                <td><p>节点</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$isChild</td>
+                                <td><p>是否是子节点</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_asTextNode" name="method_asTextNode" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">asTextNode()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">asTextNode(string <span class="argument">$tag</span>) : boolean</pre>
+                <p><em>as a text node</em></p>
+                <p>作为一个TEXT节点</p>
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$tag</td>
+                                <td><p>标签</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_skip" name="method_skip" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">skip()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">skip(string <span class="argument">$chars</span>)</pre>
+                <p><em>跳过$chars中指定的字符</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$chars</td>
+                                <td><p>字符串</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_copySkip" name="method_copySkip" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">copySkip()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">copySkip(string <span class="argument">$chars</span>) : string</pre>
+                <p><em>复制并跳过$chars中指定的字符</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$chars</td>
+                                <td><p>字符串</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_copyUntil" name="method_copyUntil" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">copyUntil()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">copyUntil(string <span class="argument">$chars</span>) : string</pre>
+                <p><em>复制直到$chars中指定的字符</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$chars</td>
+                                <td><p>字符串</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_copyUntilChar" name="method_copyUntilChar" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">copyUntilChar()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">copyUntilChar(string <span class="argument">$char</span>) : string</pre>
+                <p><em>复制直到遇到字符$char</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$char</td>
+                                <td><p>字符</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_copyUntilCharEscape" name="method_copyUntilCharEscape" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">copyUntilCharEscape()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">copyUntilCharEscape(string <span class="argument">$char</span>) : string</pre>
+                <p><em>复制直到遇到字符$char</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$char</td>
+                                <td><p>字符</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_removeNoise" name="method_removeNoise" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">removeNoise()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">removeNoise(string <span class="argument">$pattern</span>, boolean <span class="argument">$removeTag</span>)</pre>
+                <p><em>remove noise from html content</em></p>
+                <p>从HTML内容中删除干扰因素</p>
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$pattern</td>
+                                <td><p>正则模板</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$removeTag</td>
+                                <td><p>是否一起标签</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___construct" name="method___construct" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">__construct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__construct( <span class="argument">$str</span>)</pre>
+                <p><em></em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$str</td>
+                                <td>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">SimpleHtmlDomHelper.class.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/helpers/SimpleHtmlDomHelper.class.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="">Errors</a></li>
+                                    <li><a href="">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on 
+Warning: date_default_timezone_get(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. in /usr/local/php-5.5.4/lib/php/phpDocumentor/vendor/twig/twig/lib/Twig/Extension/Core.php on line 66
+October 6th, 2013 at 15:21.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>

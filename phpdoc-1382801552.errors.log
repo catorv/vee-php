@@ -1,0 +1,70 @@
+[2013-10-26 15:32:33] phpDocumentor.WARNING: E_WARNING: date_default_timezone_get(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. {"file":"/usr/local/php-5.5.4/lib/php/phpDocumentor/vendor/monolog/monolog/src/Monolog/Logger.php","line":209} []
+[2013-10-26 15:32:33] phpDocumentor.INFO: Usage:
+ project:run [-t|--target[="..."]] [-f|--filename[="..."]] [-d|--directory[="..."]] [--encoding[="..."]] [-e|--extensions[="..."]] [-i|--ignore[="..."]] [--ignore-tags[="..."]] [--hidden] [--ignore-symlinks] [-m|--markers[="..."]] [--title[="..."]] [--force] [--validate] [--visibility[="..."]] [--defaultpackagename[="..."]] [--sourcecode] [-p|--progressbar] [--template[="..."]] [--parseprivate] [-c|--config[="..."]]
+
+Aliases: run
+Options:
+ --target (-t)         Path where to store the generated output
+ --filename (-f)       Comma-separated list of files to parse. The wildcards ? and * are supported (multiple values allowed)
+ --directory (-d)      Comma-separated list of directories to (recursively) parse (multiple values allowed)
+ --encoding            encoding to be used to interpret source files with
+ --extensions (-e)     Comma-separated list of extensions to parse, defaults to php, php3 and phtml (multiple values allowed)
+ --ignore (-i)         Comma-separated list of file(s) and directories that will be ignored. Wildcards * and ? are supported (multiple values allowed)
+ --ignore-tags         Comma-separated list of tags that will be ignored, defaults to none. package, subpackage and ignore may not be ignored. (multiple values allowed)
+ --hidden              set to on to descend into hidden directories (directories starting with '.'), default is on
+ --ignore-symlinks     Ignore symlinks to other files or directories, default is on
+ --markers (-m)        Comma-separated list of markers/tags to filter (multiple values allowed)
+ --title               Sets the title for this project; default is the phpDocumentor logo
+ --force               Forces a full build of the documentation, does not increment existing documentation
+ --validate            Validates every processed file using PHP Lint, costs a lot of performance
+ --visibility          Specifies the parse visibility that should be displayed in the documentation (comma seperated e.g. "public,protected")
+ --defaultpackagename  Name to use for the default package. (default: "Default")
+ --sourcecode          Whether to include syntax highlighted source code
+ --progressbar (-p)    Whether to show a progress bar; will automatically quiet logging to stdout
+ --template            Name of the template to use (optional) (multiple values allowed)
+ --parseprivate        Whether to parse DocBlocks marked with @internal tag
+ --config (-c)         Location of a custom configuration file
+ --help (-h)           Display this help message.
+ --quiet (-q)          Do not output any message.
+ --verbose (-v|vv|vvv) Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
+ --version (-V)        Display this application version.
+ --ansi                Force ANSI output.
+ --no-ansi             Disable ANSI output.
+ --no-interaction (-n) Do not ask any interactive question.
+
+Help:
+ phpDocumentor creates documentation from PHP source files. The simplest way
+ to use it is:
+ 
+     $ phpdoc run -d [directory to parse] -t [output directory]
+ 
+ This will parse every file ending with .php, .php3 and .phtml in  and then output a HTML site containing easily readable documentation
+ in .
+ 
+ phpDocumentor will try to look for a phpdoc.dist.xml or phpdoc.xml file in your
+ current working directory and use that to override the default settings if
+ present. In the configuration file can you specify the same settings (and
+ more) as the command line provides.
+ 
+ Other commands
+ In addition to this command phpDocumentor also supports additional commands:
+ 
+ Available commands:
+   help
+   list
+   parse
+   run
+   transform
+ project
+   project:parse
+   project:run
+   project:transform
+ template
+   template:generate
+   template:list
+   template:package
+ 
+ You can get a more detailed listing of the commands using the list
+ command and get help by prepending the word help to the command
+ name.
+ [] []

@@ -1,0 +1,176 @@
+<?php
+/**
+ * VEE-PHP - a lightweight, simple, flexible, fast PHP MVC framework
+ *
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled
+ * with this package in the file LICENSE.txt.
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to catorwei@gmail.com so we can send you a copy immediately.
+ *
+ * @package vee-php
+ * @copyright Copyright (c) 2005-2079 Cator Vee
+ * @license http://www.opensource.org/licenses/bsd-license.php
+ * @author 魏永增 Cator Vee <catorwei@gmail.com>
+ */
+
+/**
+ * OAuth认证辅助器
+ * @package vee-php\helpers
+ * @author 魏永增 Cator Vee <catorwei@gmail.com>
+ */
+class OAuthHelper {
+    /** 签字加密算法 */
+    static public $signatureMethod = 'HMAC-SHA1';
+    /** OAuth 版本 */
+    static public $oauthVersion = '1.0';
+
+    /**
+     * 获取 Request Token
+     * @param string $appKey APP Key
+     * @param string $appSecret APP Secret
+     * @param string $url 获取 Request Token 的地址
+     * @param string $callback 回调地址
+     * @return mixed 如果调用成功，返回包含oauth_token和oauth_token_secret的数组，否则返回false。
+     */
+    static public function getRequestToken($appKey, $appSecret, $url, $callback = null) {
+        $params = array(
+                'oauth_callback'            => $callback,
+                'oauth_consumer_key'        => $appKey,
+                'oauth_nonce'                => self::makeNonce(),
+                'oauth_signature_method'    => self::$signatureMethod,
+                'oauth_timestamp'            => $_SERVER['REQUEST_TIME'],
+                'oauth_version'                => self::$oauthVersion,
+                );
+        $params['oauth_signature'] = self::makeSignature(self::$signatureMethod, $url, $params, $appSecret, '', 'GET');
+
+        $result = CurlHelper::get($url, $params);
+        if (CurlHelper::$httpCode == 200) {
+            parse_str($result, $result);
+            return $result;
+        }
+        return false;
+    }
+
+    /**
+     * 根据 Request Token 获取 Authorize Url
+     * Enter description here ...
+     * @param string $url 认证接口地址
+     * @param string $requestToken Request Token
+     * @return string
+     */
+    static public function getAuthorizeUrl($url, $requestToken) {
+        return $url . '?oauth_token=' . $requestToken;
+    }
+
+    /**
+     * 获取 Access Token
+     * @param string $appKey APP Key
+     * @param string $appSecret APP Secret
+     * @param string $requestToken Request Token
+     * @param string $requestSecret Request Secret
+     * @param string $requestVerifier Request Verifier
+     * @param string $url 获取 Access Token 的地址
+     * @return mixed 如果调用成功，返回包含oauth_token和oauth_token_secret的数组，否则返回false。
+     */
+    static public function getAccessToken($appKey, $appSecret, $requestToken, $requestSecret, $requestVerifier, $url) {
+        $params = array(
+                'oauth_consumer_key'          => $appKey,
+                'oauth_nonce'                 => self::makeNonce(),
+                'oauth_signature_method'      => self::$signatureMethod,
+                'oauth_timestamp'             => $_SERVER['REQUEST_TIME'],
+                'oauth_token'                 => $requestToken,
+                'oauth_verifier'              => $requestVerifier,
+                'oauth_version'               => self::$oauthVersion,
+                );
+        $params['oauth_signature'] = self::makeSignature(self::$signatureMethod, $url, $params, $appSecret, $requestSecret, 'GET');
+
+        $result = CurlHelper::get($url, $params);
+        if (CurlHelper::$httpCode == 200) {
+            parse_str($result, $result);
+            return $result;
+        }
+        return false;
+    }
+
+    static public function call($url, $data, $appKey, $appSecret, $accessToken, $accessSecret, $httpMethod = 'GET', $dataInUrl = false) {
+        $params = array(
+                'oauth_consumer_key'          => $appKey,
+                'oauth_nonce'                 => self::makeNonce(),
+                'oauth_signature_method'      => self::$signatureMethod,
+                'oauth_timestamp'             => $_SERVER['REQUEST_TIME'],
+                'oauth_token'                 => $accessToken,
+                'oauth_version'               => self::$oauthVersion,
+                );
+
+        $params2 = array_merge($data, $params);
+        $params['oauth_signature'] = self::makeSignature(self::$signatureMethod, $url, $params2, $appSecret, $accessSecret, $httpMethod);
+
+        if ($data) {
+            if ($dataInUrl) {
+                $url .= (strpos($url, '?') === false ? '?' : '&') . self::httpBuildQuery($data);
+            } else {
+                $params2['oauth_signature'] = $params['oauth_signature'];
+                $params = $params2;
+            }
+        }
+
+        return $httpMethod == 'GET' ? CurlHelper::get($url, $params) : CurlHelper::post($url, $params);
+    }
+
+    /**
+     * 生成签字
+     * @param string $signatureMethod 签字加密方法
+     * @param string $url 请求的地址
+     * @param array $params 请求的参数
+     * @param string $appSecret APP安全码
+     * @param string $secret 安全码
+     * @param string $method 请求的方式 GET|POST
+     * @return string
+     */
+    static public function makeSignature($signatureMethod, $url, $params,
+                                          $appSecret, $secret, $method) {
+        $name = 'makeSignature_' . strtoupper(strtr($signatureMethod, '-', '_'));
+        return call_user_func(array(__CLASS__, $name),
+                              $url, $params, $appSecret, $secret, $method);
+    }
+
+    /**
+     * 生成签字（HMAC-SHA1）
+     * @param string $url 请求的地址
+     * @param array $params 请求的参数
+     * @param string $appSecret APP安全码
+     * @param string $secret 安全码
+     * @param string $method 请求的方式 GET|POST
+     * @return string
+     */
+    static private function makeSignature_HMAC_SHA1($url, $params, $appSecret, $secret, $method) {
+        uksort($params, 'strcmp');
+        $params = rawurlencode(self::httpBuildQuery($params));
+        $baseString = $method . '&' . rawurlencode($url) . '&' . $params;
+        $key = $appSecret . '&' . $secret;
+        return base64_encode(hash_hmac('sha1', $baseString, $key, true));
+    }
+
+    static private function httpBuildQuery($params) {
+        $result = array();
+        if ($params) {
+            foreach ($params as $key => $value) {
+                if ($value) {
+                    $result[] = rawurlencode($key) . '=' . rawurlencode($value);
+                }
+            }
+        }
+        return implode('&', $result);
+    }
+
+    /**
+     * 生产32位随机字符
+     * @return string
+     */
+    static private function makeNonce() {
+        return md5(microtime() . mt_rand());
+    }
+}

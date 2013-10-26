@@ -1,0 +1,102 @@
+<?php
+/**
+ * VEE-PHP - a lightweight, simple, flexible, fast PHP MVC framework
+ *
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled
+ * with this package in the file LICENSE.txt.
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to catorwei@gmail.com so we can send you a copy immediately.
+ *
+ * @package vee-php
+ * @copyright Copyright (c) 2005-2079 Cator Vee
+ * @license http://www.opensource.org/licenses/bsd-license.php
+ * @author 魏永增 Cator Vee <catorwei@gmail.com>
+ */
+
+/**
+ * 异常、错误捕获及调试/测试处理类
+ *
+ * VEE-PHP 异常代码列表
+ * ------------------
+ * 
+ * 
+ * _应用程序(10xx)_
+ * 
+ *     1001   找不到需要的module文件
+ *     1002   在找到的module文件中找不到需要的Action类
+ *     1003   在找到的Action类中没有需要的Action方法
+ *     1004   找不到model类定义文件
+ *     1005   找不到语言包文件
+ *     1006   语言包中找不到对应的短语翻译
+ * 
+ * _CACHE(30xx)_
+ * 
+ *     3001   CACHE配置项不存在
+ *     3002   未知的CACHE引擎
+ * 
+ * _ORM(40xx)_
+ * 
+ *     4001   数据库配置项不存在
+ *     4041   未指定表名
+ *     4042   未指定主键字段
+ *     4051   表名不合法
+ *     4052   字段名不合法
+ *     4053   字段值不合法
+ * 
+ * _Smarty插件(50xx)_
+ * 
+ *     5001   没有定义id属性
+ *     5002   没有定义options属性或属性类型不对
+ *     5003   没有定义type属性
+ *     5004   没有定义target属性
+ * 
+ * _页面响应(60xx)_
+ * 
+ *     6001   找不到页面响应文件
+ *     6002   缺少页面响应变量
+ * 
+ * _LOG(70xx)_
+ * 
+ *     7001   LOG配置项不存在
+ *     7002   未知的LOG引擎
+ * 
+ * _其他(90xx)_
+ *
+ *     9001   文件找不到
+ *     9101   文件上传失败！失败原因：文件大小超出限制！
+ *     9102   文件上传失败！失败原因：文件只有部分被上传！
+ *     9103   文件上传失败！失败原因：没有文件被上传！
+ *     9104   文件上传失败！失败原因：找不到临时文件夹！
+ *     9105   文件上传失败！失败原因：文件写入失败！
+ *     9106   文件上传失败！失败原因：本地文件系统读写权限出错！
+ *     9107   文件上传失败！失败原因：文件类型不被允许！
+ *     9108   文件上传失败！失败原因：文件大小超出限制！
+ *     9109   文件上传失败！失败原因：其它！
+ *
+ *     0000   未知错误
+ *
+ * @package vee-php\debug
+ * @author 魏永增 Cator Vee <catorwei@gmail.com>
+ */
+interface Debugger {
+    /**
+     * 错误处理函数,即格式化输出错误信息
+     *
+     * @param int $errno 错误的等级
+     * @param string $errstr 错误信息
+     * @param string $errfile 包含错误的文件
+     * @param int $errline 错误发生的行号
+     * @param array $errcontext 错误发生时的环境变量的值
+     */
+    static public function errorHandler($errno, $errstr, $errfile, $errline,
+                                        $errcontext);
+
+    /**
+     * 异常处理函数,即格式化输出异常信息.
+     * @param Exception $exception
+     */
+    static public function exceptionHandler($exception);
+}

@@ -1,0 +1,116 @@
+<?php
+/**
+ * VEE-PHP - a lightweight, simple, flexible, fast PHP MVC framework
+ *
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled
+ * with this package in the file LICENSE.txt.
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to catorwei@gmail.com so we can send you a copy immediately.
+ *
+ * @package vee-php
+ * @copyright Copyright (c) 2005-2079 Cator Vee
+ * @license http://www.opensource.org/licenses/bsd-license.php
+ * @author 魏永增 Cator Vee <catorwei@gmail.com>
+ */
+require PATH_EXTERNALS . 'smarty/Smarty.class.php';
+/**
+ * 实现Smarty方式的Response类
+ *
+ * @package vee-php\response
+ * @author 魏永增 Cator Vee <catorwei@gmail.com>
+ */
+class SmartyResponse extends AResponse {
+    /** 模板文件扩展名 */
+    const FILEEXT_TPL = '.tpl.php';
+
+    /**
+     * Smarty 对象
+     * @var Smarty
+     */
+    static public $smarty = null;
+
+    /**
+     * 构造函数
+     */
+    public function __construct() {
+        parent::__construct();
+        if (null === self::$smarty) {
+            self::$smarty = new Smarty();
+        }
+        $this->setOption('compile_dir', PATH_APP_CACHE . 'templates/');
+        if (isset(Config::$externals['smarty'])
+                && is_array(Config::$externals['smarty'])) {
+            foreach (Config::$externals['smarty'] as $name => & $value) {
+                $this->setOption($name, $value);
+            }
+        }
+    }
+
+    /**
+     * 设置选项值
+     * 
+     * 这些选项在不同的模板引擎意义也不一致, 可以不被使用, 但是不建议另作他用
+     * @param string $name 选项名称
+     * @param mixed $value 选项值
+     * @return AResponse 返回Response对象本身
+     */
+    public function setOption($name, $value) {
+        if (property_exists(self::$smarty, $name)) {
+            self::$smarty->{$name} = $value;
+        } else {
+            parent::setOption($name, $value);
+        }
+        return $this;
+    }
+
+    /**
+     * 获取选项值.
+     * @param string $name 选项名称
+     * @param mixed $defaultValue 默认值
+     * @return mixed 返回选项值,如果该选项为设置，则返回null
+     */
+    public function getOption($name, $defaultValue = null) {
+        if (property_exists(self::$smarty, $name)) {
+            return self::$smarty->{$name};
+        } else {
+            return parent::getOption($name, $defaultValue);
+        }
+    }
+
+    /**
+     * 给页面变量赋值
+     *
+     * @param string $name 变量名,如果参数类型为数组,则为变量赋值,此时$value参数无效
+     * @param mixed $value 变量值,如果该参数未指定,则返回变量值,否则设置变量值
+     * @return APage 如果参数为NULL则返回Page对象本身,否则返回变量值
+     */
+    public function & value($name, $value = NULL) {
+        if ($value === NULL && !is_array($name)) { //取值
+            return self::$smarty->get_template_vars($name);
+        } else { //赋值
+            if (is_array($name)) { //如果是数组则批量变量赋值
+                foreach ($name as $k => $v) {
+                    self::$smarty->assign($k, $v);
+                }
+            } else {
+                self::$smarty->assign($name, $value);
+            }
+            return $this;
+        }
+    }
+
+    /**
+     * 响应内容输出
+     * @param string $flag 自定义模板文件名
+     * @return string 响应HTML
+     */
+    public function output($flag = null) {
+        if ($flag) {
+            $this->setOption(AResponse::OPTION_TEMPLATE, $flag);
+        }
+        self::$smarty->display($this->getTemplateFilename(self::FILEEXT_TPL));
+    }
+}

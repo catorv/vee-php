@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>API Documentation</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+    <script src="http://code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">API Documentation</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                    <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                    </ul>
+                    </li>
+                    <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                    <i class="icon-list-alt"></i>&#160;Errors
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                    <i class="icon-list-alt"></i>&#160;Markers
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-2037048376"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-2037048376" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/ICache.html">ICache</a></li>
+                                                    <li class="interface"><a href="../classes/Debugger.html">Debugger</a></li>
+                                                    <li class="interface"><a href="../classes/ILog.html">ILog</a></li>
+                                                                                                    <li class="class"><a href="../classes/FileCache.html">FileCache</a></li>
+                                                    <li class="class"><a href="../classes/MemcacheCache.html">MemcacheCache</a></li>
+                                                    <li class="class"><a href="../classes/V.html">V</a></li>
+                                                    <li class="class"><a href="../classes/Controller.html">Controller</a></li>
+                                                    <li class="class"><a href="../classes/Language.html">Language</a></li>
+                                                    <li class="class"><a href="../classes/AResponse.html">AResponse</a></li>
+                                                    <li class="class"><a href="../classes/VeeBase.html">VeeBase</a></li>
+                                                    <li class="class"><a href="../classes/DbMysqlAdapter.html">DbMysqlAdapter</a></li>
+                                                    <li class="class"><a href="../classes/DbPdoMysqlAdapter.html">DbPdoMysqlAdapter</a></li>
+                                                    <li class="class"><a href="../classes/Db.html">Db</a></li>
+                                                    <li class="class"><a href="../classes/ADbAdapter.html">ADbAdapter</a></li>
+                                                    <li class="class"><a href="../classes/DbPdoSuperAdapter.html">DbPdoSuperAdapter</a></li>
+                                                    <li class="class"><a href="../classes/DbQuery.html">DbQuery</a></li>
+                                                    <li class="class"><a href="../classes/DbEntity.html">DbEntity</a></li>
+                                                    <li class="class"><a href="../classes/FirephpDebugger.html">FirephpDebugger</a></li>
+                                                    <li class="class"><a href="../classes/HtmlDebugger.html">HtmlDebugger</a></li>
+                                                    <li class="class"><a href="../classes/LogDebugger.html">LogDebugger</a></li>
+                                                    <li class="class"><a href="../classes/TextDebugger.html">TextDebugger</a></li>
+                                                    <li class="class"><a href="../classes/ArrayHelper.html">ArrayHelper</a></li>
+                                                    <li class="class"><a href="../classes/AuthHelper.html">AuthHelper</a></li>
+                                                    <li class="class"><a href="../classes/CorrectHelper.html">CorrectHelper</a></li>
+                                                    <li class="class"><a href="../classes/CrypterHelper.html">CrypterHelper</a></li>
+                                                    <li class="class"><a href="../classes/CsvHelper.html">CsvHelper</a></li>
+                                                    <li class="class"><a href="../classes/CurlHelper.html">CurlHelper</a></li>
+                                                    <li class="class"><a href="../classes/DataHelper.html">DataHelper</a></li>
+                                                    <li class="class"><a href="../classes/DbEntityHelper.html">DbEntityHelper</a></li>
+                                                    <li class="class"><a href="../classes/ExtjsHelper.html">ExtjsHelper</a></li>
+                                                    <li class="class"><a href="../classes/HttpHelper.html">HttpHelper</a></li>
+                                                    <li class="class"><a href="../classes/POP3.html">POP3</a></li>
+                                                    <li class="class"><a href="../classes/SMTP.html">SMTP</a></li>
+                                                    <li class="class"><a href="../classes/MailHelper.html">MailHelper</a></li>
+                                                    <li class="class"><a href="../classes/phpmailerException.html">phpmailerException</a></li>
+                                                    <li class="class"><a href="../classes/OAuthHelper.html">OAuthHelper</a></li>
+                                                    <li class="class"><a href="../classes/SecurityHelper.html">SecurityHelper</a></li>
+                                                    <li class="class"><a href="../classes/SimpleHtmlDomHelper.html">SimpleHtmlDomHelper</a></li>
+                                                    <li class="class"><a href="../classes/SimpleHtmlDomNode.html">SimpleHtmlDomNode</a></li>
+                                                    <li class="class"><a href="../classes/StringHelper.html">StringHelper</a></li>
+                                                    <li class="class"><a href="../classes/UploadHelper.html">UploadHelper</a></li>
+                                                    <li class="class"><a href="../classes/ValidateHelper.html">ValidateHelper</a></li>
+                                                    <li class="class"><a href="../classes/DbLog.html">DbLog</a></li>
+                                                    <li class="class"><a href="../classes/FileLog.html">FileLog</a></li>
+                                                    <li class="class"><a href="../classes/MemcacheLog.html">MemcacheLog</a></li>
+                                                    <li class="class"><a href="../classes/CsvResponse.html">CsvResponse</a></li>
+                                                    <li class="class"><a href="../classes/ExcelResponse.html">ExcelResponse</a></li>
+                                                    <li class="class"><a href="../classes/ExtjsResponse.html">ExtjsResponse</a></li>
+                                                    <li class="class"><a href="../classes/HtmlResponse.html">HtmlResponse</a></li>
+                                                    <li class="class"><a href="../classes/JsonResponse.html">JsonResponse</a></li>
+                                                    <li class="class"><a href="../classes/NullResponse.html">NullResponse</a></li>
+                                                    <li class="class"><a href="../classes/SmartyResponse.html">SmartyResponse</a></li>
+                                                    <li class="class"><a href="../classes/VeeResponse.html">VeeResponse</a></li>
+                                                    <li class="class"><a href="../classes/XmlResponse.html">XmlResponse</a></li>
+                                                    <li class="class"><a href="../classes/C.html">C</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/default.html">\</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\</small>OAuthHelper</h1>
+                    <p><em>OAuth认证辅助器</em></p>
+                    
+
+
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/OAuthHelper.html#method_getRequestToken" class="">getRequestToken()</a><br />
+                                                                    <a href="../classes/OAuthHelper.html#method_getAuthorizeUrl" class="">getAuthorizeUrl()</a><br />
+                                                                    <a href="../classes/OAuthHelper.html#method_getAccessToken" class="">getAccessToken()</a><br />
+                                                                    <a href="../classes/OAuthHelper.html#method_call" class="">call()</a><br />
+                                                                    <a href="../classes/OAuthHelper.html#method_makeSignature" class="">makeSignature()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/OAuthHelper.html#property_signatureMethod" class="">$signatureMethod</a><br />
+                                                                    <a href="../classes/OAuthHelper.html#property_oauthVersion" class="">$oauthVersion</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <em>No protected methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No protected properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <a href="../classes/OAuthHelper.html#method_makeSignature_HMAC_SHA1" class="">makeSignature_HMAC_SHA1()</a><br />
+                                                                    <a href="../classes/OAuthHelper.html#method_httpBuildQuery" class="">httpBuildQuery()</a><br />
+                                                                    <a href="../classes/OAuthHelper.html#method_makeNonce" class="">makeNonce()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No private properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/helpers.OAuthHelper.class.php.html"><div class="path-wrapper">helpers/OAuthHelper.class.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">\vee-php\helpers</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                    <div class="namespace-wrapper">\OAuthHelper</div>
+                            </dd>
+
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr>
+                            <th>
+                                author
+                            </th>
+                            <td>
+                                                                    <p>魏永增 Cator Vee <a href="&#x6d;&#97;&#105;&#x6c;&#x74;&#111;&#58;&#x63;&#x61;&#116;o&#x72;&#119;&#101;&#x69;&#x40;&#103;&#109;&#x61;&#x69;&#108;.&#x63;&#111;&#109;">&#x63;&#x61;&#116;o&#x72;&#119;&#101;&#x69;&#x40;&#103;&#109;&#x61;&#x69;&#108;.&#x63;&#111;&#109;</a></p>
+
+                                                            </td>
+                        </tr>
+                                        </table>
+                </aside>
+            </div>
+
+                        
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_signatureMethod" name="property_signatureMethod" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$signatureMethod</h3>
+                <pre class="signature">$signatureMethod</pre>
+                <p><em>签字加密算法</em></p>
+                
+
+
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_oauthVersion" name="property_oauthVersion" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$oauthVersion</h3>
+                <pre class="signature">$oauthVersion</pre>
+                <p><em>OAuth 版本</em></p>
+                
+
+
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getRequestToken" name="method_getRequestToken" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getRequestToken()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getRequestToken(string <span class="argument">$appKey</span>, string <span class="argument">$appSecret</span>, string <span class="argument">$url</span>, string <span class="argument">$callback</span>) : mixed</pre>
+                <p><em>获取 Request Token</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$appKey</td>
+                                <td><p>APP Key</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$appSecret</td>
+                                <td><p>APP Secret</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$url</td>
+                                <td><p>获取 Request Token 的地址</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$callback</td>
+                                <td><p>回调地址</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                            &mdash; <p>如果调用成功，返回包含oauth_token和oauth_token_secret的数组，否则返回false。</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getAuthorizeUrl" name="method_getAuthorizeUrl" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getAuthorizeUrl()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getAuthorizeUrl(string <span class="argument">$url</span>, string <span class="argument">$requestToken</span>) : string</pre>
+                <p><em>根据 Request Token 获取 Authorize Url
+Enter description here .</em></p>
+                <p>..</p>
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$url</td>
+                                <td><p>认证接口地址</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$requestToken</td>
+                                <td><p>Request Token</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getAccessToken" name="method_getAccessToken" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getAccessToken()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getAccessToken(string <span class="argument">$appKey</span>, string <span class="argument">$appSecret</span>, string <span class="argument">$requestToken</span>, string <span class="argument">$requestSecret</span>, string <span class="argument">$requestVerifier</span>, string <span class="argument">$url</span>) : mixed</pre>
+                <p><em>获取 Access Token</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$appKey</td>
+                                <td><p>APP Key</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$appSecret</td>
+                                <td><p>APP Secret</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$requestToken</td>
+                                <td><p>Request Token</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$requestSecret</td>
+                                <td><p>Request Secret</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$requestVerifier</td>
+                                <td><p>Request Verifier</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$url</td>
+                                <td><p>获取 Access Token 的地址</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                            &mdash; <p>如果调用成功，返回包含oauth_token和oauth_token_secret的数组，否则返回false。</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_call" name="method_call" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">call()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">call( <span class="argument">$url</span>,  <span class="argument">$data</span>,  <span class="argument">$appKey</span>,  <span class="argument">$appSecret</span>,  <span class="argument">$accessToken</span>,  <span class="argument">$accessSecret</span>,  <span class="argument">$httpMethod</span>,  <span class="argument">$dataInUrl</span>)</pre>
+                <p><em></em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$url</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$data</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$appKey</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$appSecret</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$accessToken</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$accessSecret</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$httpMethod</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$dataInUrl</td>
+                                <td>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_makeSignature" name="method_makeSignature" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">makeSignature()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">makeSignature(string <span class="argument">$signatureMethod</span>, string <span class="argument">$url</span>, array <span class="argument">$params</span>, string <span class="argument">$appSecret</span>, string <span class="argument">$secret</span>, string <span class="argument">$method</span>) : string</pre>
+                <p><em>生成签字</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$signatureMethod</td>
+                                <td><p>签字加密方法</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$url</td>
+                                <td><p>请求的地址</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$params</td>
+                                <td><p>请求的参数</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$appSecret</td>
+                                <td><p>APP安全码</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$secret</td>
+                                <td><p>安全码</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$method</td>
+                                <td><p>请求的方式 GET|POST</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_makeSignature_HMAC_SHA1" name="method_makeSignature_HMAC_SHA1" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">makeSignature_HMAC_SHA1()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">makeSignature_HMAC_SHA1(string <span class="argument">$url</span>, array <span class="argument">$params</span>, string <span class="argument">$appSecret</span>, string <span class="argument">$secret</span>, string <span class="argument">$method</span>) : string</pre>
+                <p><em>生成签字（HMAC-SHA1）</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$url</td>
+                                <td><p>请求的地址</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$params</td>
+                                <td><p>请求的参数</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$appSecret</td>
+                                <td><p>APP安全码</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$secret</td>
+                                <td><p>安全码</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$method</td>
+                                <td><p>请求的方式 GET|POST</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_httpBuildQuery" name="method_httpBuildQuery" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">httpBuildQuery()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">httpBuildQuery( <span class="argument">$params</span>)</pre>
+                <p><em></em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$params</td>
+                                <td>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_makeNonce" name="method_makeNonce" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">makeNonce()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">makeNonce() : string</pre>
+                <p><em>生产32位随机字符</em></p>
+                
+
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">OAuthHelper.class.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/helpers/OAuthHelper.class.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="">Errors</a></li>
+                                    <li><a href="">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on 
+Warning: date_default_timezone_get(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. in /usr/local/php-5.5.4/lib/php/phpDocumentor/vendor/twig/twig/lib/Twig/Extension/Core.php on line 66
+October 6th, 2013 at 15:21.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>

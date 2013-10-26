@@ -1,0 +1,327 @@
+<?php
+/**
+ * VEE-PHP - a lightweight, simple, flexible, fast PHP MVC framework
+ *
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled
+ * with this package in the file LICENSE.txt.
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to catorwei@gmail.com so we can send you a copy immediately.
+ *
+ * @package vee-php
+ * @copyright Copyright (c) 2005-2079 Cator Vee
+ * @license http://www.opensource.org/licenses/bsd-license.php
+ * @author 魏永增 Cator Vee <catorwei@gmail.com>
+ */
+
+/**
+ * 实现PHP语法及SimpleHtmlDom方式的Response类（一种模板引擎）
+ * 
+ * 简易轻量级的模板引擎,模板文件完全使用PHP语法及其风格.
+ * 自动定位模板文件规则(优先级自上而下):
+ * 
+ *      $MODULE/$CONTROLLER_NAME$ACTION_NAME.tpl.php
+ *      $MODULE/$CONTROLLER_NAME~$ACTION.tpl.php
+ *
+ *
+ * 一个页面包含两种模板相关文件：
+ * 
+ *     1. 模板文件(.tpl.php)(必须)
+ *     2. 模板配置文件(.cfg.php)(可选)
+ *
+ *
+ * 支持的选项（选项定义详见 AResponse）:
+ * 
+ *     OPTION_TEMPLATE
+ *
+ * @package vee-php\response
+ * @author 魏永增 Cator Vee <catorwei@gmail.com>
+ */
+class VeeResponse extends AResponse {
+    /** 节点类型：运算节点 */
+    const ELEMENT_EVALUATE     = 'Evaluate';
+    /** 节点类型：条件判断节点 */
+    const ELEMENT_IF           = 'If';
+    /** 节点类型：For循环节点 */
+    const ELEMENT_FOR          = 'For';
+    /** 节点类型：Foreach循环节点 */
+    const ELEMENT_FOREACH      = 'Foreach';
+    /** 节点类型：嵌入子模板 */
+    const ELEMENT_EMBED        = 'Embed';
+
+    /** 模板文件扩展名 */
+    const FILEEXT_TPL       = '.tpl.php';
+    /** 模板配置文件扩展名 */
+    const FILEEXT_CFG       = '.cfg.php';
+    /** 这个实际上是 FILEEXT_TPL 长度的负值 */
+    const FILEEXT_CUT       = -8;
+
+    /**
+     * 响应内容输出
+     * @param string $flag 自定义模板文件名
+     * @return string 响应HTML
+     */
+    public function output($flag = null) {
+        if ($flag) {
+            $this->setOption(AResponse::OPTION_TEMPLATE, $flag);
+        }
+
+        $file = $this->getTemplateFilename(self::FILEEXT_TPL);
+        $configFile = substr($file, 0, self::FILEEXT_CUT) . self::FILEEXT_CFG;
+
+        if (is_file($configFile)) {
+            // 定位模板缓存文件
+            $cachePath = PATH_APP_CACHE . 'templates/' . dirname(V::$uri['path']);
+            if (!is_dir($cachePath)) {
+                mkdir($cachePath, 0755, true);
+            }
+            $cacheFile = $cachePath . '/' . basename($file);
+
+            // 生产缓存文件
+            if (is_file($cacheFile)) {
+                $mtTemplate = filemtime($file);
+                $mtConfig = filemtime($configFile);
+                $mtCache = filemtime($cacheFile);
+                $makeCache = ($mtTemplate > $mtCache || $mtConfig > $mtCache);
+            } else {
+                $makeCache = true;
+            }
+            if ($makeCache) {
+                $html = $this->parse($file, $configFile, $cacheFile);
+                file_put_contents($cacheFile, $html);
+            }
+        } else {
+            $cacheFile = & $file;
+        }
+
+        extract($this->values, EXTR_OVERWRITE);
+        include $cacheFile;
+    }
+
+    /**
+     * 嵌入另一个模板，实现布局功能。
+     * @param string $action URI协议字符串
+     */
+    private function embed($action) {
+        $values = $this->values;
+        $options = $this->options;
+        $uriOld = V::$uri;
+//        $this->values = array();
+//        $this->options = array();
+
+        list($controller, $uri) = V::run($action);
+        V::$uri = $uri;
+        $this->output();
+
+        $this->values = $values;
+        $this->options = $options;
+        V::$uri = $uriOld;
+    }
+
+    /**
+     * 根据配置文件解析DOM结构,并保存到
+     * @param string $filename DOM模板文件
+     * @param string $configFile 配置文件
+     * @param string $outputFile 结果输出文件
+     */
+    private function parse($filename, $configFile, $outputFile) {
+        V::loadHelper('SimpleHtmlDomHelper');
+        $dom = SimpleHtmlDomHelper::getInstance();
+        $dom->loadFromFile($filename);
+
+        $config = include($configFile);
+        foreach ($config['elements'] as $name => $element) {
+            if (!isset($element['type'])) {
+                $element['type'] = self::ELEMENT_EVALUATE;
+            }
+            $node = $dom->find($name, 0);
+            if ($node) {
+                $this->{'parseElement' . $element['type']}($node, $element);
+            }
+        }
+
+        $html = $dom->save();
+        $dom->clear();
+        unset($dom);
+        return $html;
+    }
+
+    /**
+     * 生成计算元素的配置项
+     * @param string $value 内容替换字符串
+     * @param array $attributes 属性设置数组
+     * @param boolean $strip 是否剥去HTML标签，默认为false
+     * @return array
+     */
+    static public function makeEvaluate($value = null, $attributes = null,
+                                        $strip = false) {
+        return array(
+                'type'          => self::ELEMENT_EVALUATE,
+                'value'         => $value,
+                'attributes'    => $attributes,
+                'strip'         => $strip,
+                );
+    }
+
+    /**
+     * 解析计算元素
+     * @param SimpleHtmlDomNode $node DOM节点对象
+     * @param array $element 配置项
+     */
+    private function parseElementEvaluate($node, $element) {
+        $strip = (isset($element['strip']) && $element['strip']);
+        if (isset($element['value'])) {
+            if ($strip) {
+                $node->outertext = $this->parseValue($element['value']);
+            } else {
+                $node->innertext = $this->parseValue($element['value']);
+            }
+        }
+        if (!$strip && isset($element['attributes'])
+                    && is_array($element['attributes'])) {
+            foreach ($element['attributes'] as $name => $value) {
+                $node->$name = $this->parseValue($value);
+            }
+        }
+    }
+
+    /**
+     * 生成条件判断元素(If)的配置项
+     * @param string $condition 关系表达式字符串
+     * @return array
+     */
+    static public function makeIf($condition) {
+        return array(
+                'type'      => self::ELEMENT_IF,
+                'condition' => $condition,
+                );
+    }
+
+    /**
+     * 解析条件判断元素(If)
+     * @param SimpleHtmlDomNode $node DOM节点对象
+     * @param array $element 配置项
+     */
+    private function parseElementIf($node, $element) {
+        if (isset($element['condition'])) {
+            $node->tag = '$if';
+            $node->condition = $element['condition'];
+        }
+    }
+
+    /**
+     * 生成序列循环元素(For)的配置项
+     * @param mixed $from 起始变量名或数值
+     * @param mixed $to 结束变量名或数值
+     * @param string $varName 循环变量名
+     * @return array
+     */
+    static public function makeFor($from, $to, $varName = '$i') {
+        return array(
+                'type'  => self::ELEMENT_FOR,
+                'var'   => $varName,
+                'from'  => $from,
+                'to'    => $to,
+                );
+    }
+
+    /**
+     * 解析序列循环元素(For)
+     * @param SimpleHtmlDomNode $node DOM节点对象
+     * @param array $element 配置项
+     */
+    private function parseElementFor($node, $element) {
+        if (isset($element['var']) && isset($element['from'])
+                                   && isset($element['to']) ) {
+            $node->tag = '$for';
+            $node->var = $element['var'];
+            $node->from = $element['from'];
+            $node->to = $element['to'];
+        }
+    }
+
+    /**
+     * 生成枚举循环元素(Foreach)的配置项
+     * @param string $varName 枚举变量名
+     * @param string $valueName 值变量名
+     * @param string $keyName 键名变量名
+     * @return array
+     */
+    static public function makeForeach($varName, $valueName = null,
+                                                 $keyName = null) {
+        return array(
+                'type'  => self::ELEMENT_FOREACH,
+                'var'   => $varName,
+                'key'   => $keyName,
+                'value' => $valueName,
+                );
+    }
+
+    /**
+     * 解析枚举循环元素(Foreach)
+     * @param SimpleHtmlDomNode $node DOM节点对象
+     * @param array $element 配置项
+     */
+    private function parseElementForeach($node, $element) {
+        if (isset($element['var'])) {
+            $node->tag = '$foreach';
+            $node->var = $element['var'];
+            $node->key = isset($element['key']) ? $element['key']
+                                                : '$' . $node->id . 'Key';
+            $node->value = isset($element['value']) ? $element['value']
+                                                    : '$' . $node->id . 'Value';
+        }
+    }
+
+    /**
+     * 嵌入子模板(Embed)的配置项
+     * @param string $action URI协议字符串
+     * @return array
+     */
+    static public function makeEmbed($action) {
+        return array(
+                'type'      => self::ELEMENT_EMBED,
+                'action'    => $action,
+                );
+    }
+
+    /**
+     * 嵌入子模板(Embed)
+     * @param SimpleHtmlDomNode $node DOM节点对象
+     * @param array $element 配置项
+     */
+    private function parseElementEmbed($node, $element) {
+        if (isset($element['action'])) {
+            $node->tag = '$embed';
+            $node->action = $element['action'];
+        }
+    }
+
+    /**
+     * 解析模板配置项value的值内容
+     * 
+     * 根据$value值第一个字符判断该值的类型:
+     * 
+     *     '    字符串
+     *     "    字符串
+     * 
+     * 除去以上字符开头的$value全部被识别为PHP表达式, 所以如果表达式的第一项是字符串的话,应该在引号前面留一个空格,以免表达式被误识别为字符串
+     * 
+     * @param string $value 模板配置项value
+     * @return string
+     */
+    private function parseValue($value) {
+        if ($value) {
+            if ($value[0] == ' ') { // 字符串
+                return substr($value, 1);
+            } else { // 表达式
+                return '<?php echo ' . $value . '; ?>';
+            }
+        } else {
+            return '';
+        }
+    }
+}
+

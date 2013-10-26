@@ -1,0 +1,174 @@
+<?php
+/**
+ * VEE-PHP - a lightweight, simple, flexible, fast PHP MVC framework
+ *
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled
+ * with this package in the file LICENSE.txt.
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to catorwei@gmail.com so we can send you a copy immediately.
+ *
+ * @package vee-php
+ * @copyright Copyright (c) 2005-2079 Cator Vee
+ * @license http://www.opensource.org/licenses/bsd-license.php
+ * @author 魏永增 Cator Vee <catorwei@gmail.com>
+ */
+
+/**
+ * 实现CVS格式的Response类
+ *
+ * @package vee-php\response
+ * @author 魏永增 Cator Vee <catorwei@gmail.com>
+ */
+class ExcelResponse extends AResponse {
+    /**
+     * 是否有标题行
+     * @var boolean $hasTitle
+     */
+    private $hasTitle = false;
+    /**
+     * 列定义
+     * @var array $columns
+     */
+    private $columns = array();
+
+    /**
+     * 构造函数
+     */
+    public function __construct() {
+        header('Pragma: cache');
+        header('Cache-Control: public, must-revalidate, max-age=0');
+        header('Accept-Ranges: bytes');
+        header('Content-type: application/vnd.ms-excel');
+    }
+
+    /**
+     * 响应内容输出
+     * 
+     * 数据的输出格式化在 $values 的每一条需要格式化的记录中定义,
+     * 支持大部分的HTML<td>标签的属性, 如:
+     * 
+     *     array (
+     *         '字段名'        => '字段值',
+     *         '字段名 attr'   => array( //该字段的格式化属性
+     *                         'colspan'      => 15,
+     *                         'align'        => 'center',
+     *         ),
+     *     );
+     * 
+     * @param boolean $filename Excel文件名
+     */
+    public function output($filename = 'noname.xls') {
+        header('Content-Disposition: attachment; filename='
+               . urlencode($filename));
+
+        echo '<html><head><meta http-equiv="Content-Type" content="application/vnd.ms-excel; charset='
+                . Config::$response['charset'] . '" /></head><body><table border="1">';
+
+        if (isset($this->values['columns'])) {
+            $this->setColumns($this->values['columns']);
+            unset($this->values['columns']);
+        } else {
+            throw new Exception('可能缺少以下页面响应参数:columns', 6002);
+        }
+
+        if ($this->values && $this->columns) {
+            $index = 0;
+            foreach ($this->values as $row) {
+                if (0 === $index && $this->hasTitle) {
+                    echo '<tr>';
+                    foreach ($this->columns as $column) {
+                        echo '<th style="background:#d7e4bc">',
+                             htmlspecialchars($column['title']),
+                             '</th>';
+                    }
+                    echo '</tr>';
+                }
+                ++$index;
+                echo '<tr>';
+                $skipColumn = 0;
+                foreach ($this->columns as $field => $column) {
+                    if (0 < $skipColumn) {
+                        --$skipColumn;
+                        continue;
+                    }
+                    switch ($column['type']) {
+                        case 'orderNumber':
+                            $content = $index;
+                            break;
+                        case 'timestamp':
+                            $content = isset($row[$field])
+                                        ? date('Y-m-d H:i:s',
+                                               intval($row[$field]))
+                                        : '';
+                            break;
+                        case 'hash':
+                            $content = $column['hashmap'][$row[$field]];
+                            break;
+                        default:
+                            $content = $row[$field];
+                            break;
+                    }
+                    if ($column['type'] == 'int'
+                            || $column['type'] == 'float') {
+                        echo '<td';
+                    } else if ($column['type'] == 'orderNumber') {
+                        echo '<td align="center"';
+                    } else {
+                        echo '<td style="vnd.ms-excel.numberformat:@"';
+                    }
+                    if (isset($row[$field . ' attr'])) {
+                        $attrs = & $row[$field . ' attr'];
+                        if (is_array($attrs)) {
+                            foreach ($attrs as $attrName => $attrValue) {
+                                echo ' ', $attrName, '="',
+                                     htmlspecialchars($attrValue, ENT_QUOTES),
+                                     '"';
+                                if ('colspan' == $attrName) {
+                                    $skipColumn = intval($attrValue) - 1;
+                                }
+                            }
+                        } else {
+                            echo ' ', $attrs;
+                        }
+                    }
+                    echo '>', htmlspecialchars($content), '</td>';
+                }
+                echo '</tr>';
+            }
+        }
+        echo '</table></body></html>';
+    }
+
+    /**
+     * 定义标题文字
+     * 
+     * $columns数组格式要求:
+     * 
+     *     array (
+     *         '字段名#字段类型'    => '标题',
+     *         '字段名'            => '标题',
+     *     );
+     *
+     * @param array $columns 标题数组
+     */
+    private function setColumns($columns) {
+        foreach ($columns as $field => $column) {
+            if (is_array($column)) {
+                $this->columns[$field] = $column;
+            } else {
+                if (false !== strpos($field, '#')) {
+                    list($name, $type) = explode('#', $field, 2);
+                } else {
+                    $name = $field;
+                    $type = '';
+                }
+                $this->columns[$name]['title'] = $column;
+                $this->columns[$name]['type'] = $type;
+            }
+        }
+        $this->hasTitle = !isset($this->columns['$$HIDE_TITLE$$']);
+    }
+}

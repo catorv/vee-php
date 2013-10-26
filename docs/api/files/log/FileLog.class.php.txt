@@ -1,0 +1,181 @@
+<?php
+/**
+ * VEE-PHP - a lightweight, simple, flexible, fast PHP MVC framework
+ *
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled
+ * with this package in the file LICENSE.txt.
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to catorwei@gmail.com so we can send you a copy immediately.
+ *
+ * @package vee-php
+ * @copyright Copyright (c) 2005-2079 Cator Vee
+ * @license http://www.opensource.org/licenses/bsd-license.php
+ * @author 魏永增 Cator Vee <catorwei@gmail.com>
+ */
+
+/**
+ * 实现文件存储的Log类
+ *
+ * @package vee-php\log
+ * @author 魏永增 Cator Vee <catorwei@gmail.com>
+ */
+class FileLog {
+    /** 数组元素分隔符 */
+    const ARRAY_SEPARATOR = ';  ';
+
+    /** 数组元素分隔符替代字符串 */
+    const ARRAY_SEPARATOR_PROXY = ';\\ ';
+
+    /** 数组键名分隔符 */
+    const KEY_SEPARATOR = '=';
+
+    /** 日志创建时间戳变量名 */
+    const VAR_TIMESTAMP = 'creatime';
+
+    /** 日志消息变量名 */
+    const VAR_MESSAGE = 'message';
+
+    /**
+     * LOG存放路径
+     * @var string
+     */
+    private $path = PATH_APP_LOG;
+
+    /**
+     * 构造函数
+     * @param array $params 配置参数
+     */
+    public function __construct($params) {
+        if (isset($params['root'])) {
+            if ('/' != $params['root'][strlen($params['root'])-1]) {
+                $params['root'] .= '/';
+            }
+            $this->path = $params['root'];
+        }
+        if (!is_dir($this->path)) {
+            mkdir($this->path, 0755, true);
+        }
+    }
+
+    /**
+     * 记录日志
+     * @param string $type 日志分类 (对应一个文本文件的文件名)
+     * @param array $data 日志数据(字符串|二维键值对数组)
+     * @return boolean 返回是否记录成功
+     */
+    public function write($type, $data) {
+        $file = $this->path . $type . '.log.php';
+        $data = ( is_file($file) ? "\n[" : "<?php exit(0); ?>\n[" )
+              . date('Y-m-d H:i:s') . '] ' . $this->encode($data);
+        if ($fp = fopen($file, 'a')) {
+            $result = fwrite($fp, $data);
+            fclose($fp);
+        } else {
+            $result = false;
+        }
+        return $result;
+    }
+
+    /**
+     * 读取日志信息
+     * @param string $type 日志分类 (对应一个文本文件的文件名)
+     * @param int $start 开始读取位置
+     * @param int $length 读取日志条目数
+     * @return array
+     */
+    public function read($type, $start = 0, $length = 100) {
+        $result = array();
+        $file = $this->path . $type . '.log.php';
+        if (is_file($file) && $fp = fopen($file, 'r')) {
+            fgets($fp);
+            if (0 < $start) {
+                for ($i = 0; !feof($fp) && $i < $start; ++$i) {
+                    fgets($fp);
+                }
+            }
+            for ($i = 0; !feof($fp) && $i < $length; ++$i) {
+                $str = fgets($fp);
+                $time = substr($str, 1, 19);
+                $str = substr(rtrim($str, "\n\r"), 22);
+                $data = $this->decode($str);
+                if (is_array($data)) {
+                    $data[self::VAR_TIMESTAMP] = strtotime($time);
+                    $result[] = $data;
+                } else {
+                    $result[] = array(
+                            self::VAR_MESSAGE       => $data,
+                            self::VAR_TIMESTAMP     => strtotime($time),
+                            );
+                }
+            }
+            fclose($fp);
+        }
+        return $result;
+    }
+
+    /**
+     * 统计日志条目总数
+     * @param string $type 日志分类
+     * @return array
+     */
+    public function count($type) {
+        $result = 0;
+        $file = $this->path . $type . '.log.php';
+        if (is_file($file)) {
+            $lines = file($file);
+            $result = count($lines) - 1;
+        }
+        return $result;
+    }
+
+    /**
+     * 数组编码
+     * @param mixed $data 需要编码的数据
+     * @return string 返回编码后的字符串
+     */
+    private function encode($data) {
+        if (is_array($data)) {
+            $result = array();
+            foreach ($data as $key => $value) {
+                $value = addcslashes(strval($value), "\n\r\\");
+                if (false !== strpos($value, self::ARRAY_SEPARATOR)) {
+                    $value = str_replace(self::ARRAY_SEPARATOR,
+                                         self::ARRAY_SEPARATOR_PROXY,
+                                         $value);
+                }
+                $result[] = $key . self::KEY_SEPARATOR . $value;
+            }
+            return implode(self::ARRAY_SEPARATOR, $result);
+        } else {
+            return ' ' . strval($data);
+        }
+    }
+
+    /**
+     * 数组解码
+     * @param string $str 需要解码的字符串
+     * @return mixed 返回解码后的数据
+     */
+    private function decode($str) {
+        if (' ' == $str[0]) {
+            return substr($str, 1);
+        } else {
+            $result = array();
+            $array = explode(self::ARRAY_SEPARATOR, $str);
+            foreach ($array as $s) {
+                list($key, $value) = explode(self::KEY_SEPARATOR, $s, 2);
+                if (false !== strpos($value, self::ARRAY_SEPARATOR_PROXY)) {
+                    $value = str_replace(self::ARRAY_SEPARATOR_PROXY,
+                                         self::ARRAY_SEPARATOR,
+                                         $value);
+                }
+                $value = stripcslashes($value);
+                $result[$key] = $value;
+            }
+            return $result;
+        }
+    }
+}

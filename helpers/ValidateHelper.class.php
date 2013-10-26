@@ -1,0 +1,162 @@
+<?php
+/**
+ * VEE-PHP - a lightweight, simple, flexible, fast PHP MVC framework
+ *
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled
+ * with this package in the file LICENSE.txt.
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to catorwei@gmail.com so we can send you a copy immediately.
+ *
+ * @package vee-php
+ * @copyright Copyright (c) 2005-2079 Cator Vee
+ * @license http://www.opensource.org/licenses/bsd-license.php
+ * @author 魏永增 Cator Vee <catorwei@gmail.com>
+ */
+
+/**
+ * 验证辅助器
+ * @package vee-php\helpers
+ * @author 魏永增 Cator Vee <catorwei@gmail.com>
+ */
+class ValidateHelper {
+    /** 验证规则：必须的字段 */
+    const REQUIRED = 'ValidateHelper::requiredValidator';
+    /** 验证规则：字母（包含大小写） */
+    const ALPHA = 'ValidateHelper::alphaValidator';
+    /** 验证规则：字母（包含大小写）或数字 */
+    const ALPHANUM = 'ValidateHelper::alphanumValidator';
+    /** 验证规则：数字 */
+    const NUMERIC = 'ValidateHelper::numericValidator';
+    /** 验证规则：正则 */
+    const REGEX = 'ValidateHelper::regexValidator';
+    /** 验证规则：邮件 */
+    const EMAIL = 'ValidateHelper::emailValidator';
+    /** 验证规则：URL */
+    const URL = 'ValidateHelper::urlValidator';
+
+    /**
+     * 验证指定数组中的元素值是否合法
+     * @param array $var 被检查的数组
+     * @param array $rules 验证规则列表
+     * @return mixed 如果验证通过返回true，否则返回一个包含错误信息的数组
+     */
+    static public function validate($var, $rules) {
+        $errors = array();
+        foreach ($rules as $names => $rule) {
+            if (false === strpos($names, ',')) {
+                $names = array($names);
+            } else {
+                $names = explode(',', $names);
+            }
+            if (is_array($rule) && isset($rule['validator'])) {
+                if (!isset($rule['options'])) {
+                    $rule['options'] = array();
+                } else if (!is_array($rule['options'])) {
+                    $rule['options'] = array($rule['options']);
+                }
+            } else {
+                $rule = array(
+                        'validator' => $rule,
+                        'options'   => array(),
+                        );
+            }
+            foreach ($names as $name) {
+                if (!isset($var[$name])) {
+                    $var[$name] = '';
+                }
+                if (!call_user_func_array($rule['validator'],
+                                          array_merge(array($var[$name]),
+                                                      $rule['options']))) {
+                    if (isset($rule['text'])) {
+                        $errors[$name][] = sprintf($rule['text'],
+                                                   $var[$name], $name);
+                    } else {
+                        $errors[$name][] = 'value of ' . $name . ' is invalid.';
+                    }
+                }
+            }
+        }
+        if (empty($errors)) {
+            return true;
+        } else {
+            return $errors;
+        }
+    }
+
+    /**
+     * 验证变量值是否为空
+     * @param mixed $var 被检查的变量
+     * @param boolean $allowBlank 是否允许空白字符
+     * @return boolean
+     */
+    static public function requiredValidator($var, $allowBlank = true) {
+        if ($allowBlank) {
+            return !empty($var);
+        } else {
+            $v = trim($var);
+            return !empty($v);
+        }
+    }
+
+    /**
+     * 验证变量值是否由字母（包括大小写）组成
+     * @param mixed $var 被检查的变量
+     * @return boolean
+     */
+    static public function alphaValidator($var) {
+        return ctype_alpha($var);
+    }
+
+    /**
+     * 验证变量值是否由字母（包括大小写）或数字组成
+     * @param mixed $var 被检查的变量
+     * @return boolean
+     */
+    static public function alphanumValidator($var) {
+        return ctype_alnum($var);
+    }
+
+    /**
+     * 验证变量值是否由数字组成
+     * @param mixed $var 被检查的变量
+     * @return boolean
+     */
+    static public function numericValidator($var) {
+        return is_numeric($var);
+    }
+
+    /**
+     * 使用正则表达式验证变量值
+     * @param mixed $var 被检查的变量
+     * @param string $pattern 正则表达式
+     * @return boolean
+     */
+    static public function regexValidator($var, $pattern = null) {
+        if ($pattern) {
+            return preg_match($pattern, $var);
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * 验证变量值是否符合EMAIL格式
+     * @param mixed $var 被检查的变量
+     * @return boolean
+     */
+    static public function emailValidator($var) {
+        return self::regexValidator($var, '/^([\\w]+)(\\.[\\w]+)*@([\\w\\-]+\\.){1,5}([A-Za-z]){2,4}$/');
+    }
+
+    /**
+     * 验证变量值是否符合URL格式
+     * @param mixed $var 被检查的变量
+     * @return boolean
+     */
+    static public function urlValidator($var) {
+        return self::regexValidator($var, '/(((https?)|(ftp)):\\/\\/([\\-\\w]+\\.)+\\w{2,3}(\\/[%\\-\\w]+(\\.\\w{2,})?)*(([\\w\\-\\.\\?\\\\\\/+@&#;`~=%!]*)(\\.\\w{2,})?)*\\/?)/i');
+    }
+}

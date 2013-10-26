@@ -1,0 +1,74 @@
+#
+# Apache .htaccess
+#
+AcceptPathInfo On
+
+Options -Indexes
+
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.+) /index.php/$1 [L]
+
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteCond %{REQUEST_FILENAME}/index.php !-f
+RewriteCond %{REQUEST_FILENAME}/index.html !-f
+RewriteRule ^(.+) /index.php/$1 [L]
+
+php_flag magic_quotes_gpc off
+php_flag register_globals off
+php_flag short_open_tag on
+
+
+
+#
+# Nginx nginx.conf
+#
+    server {
+        listen       80;
+        server_name  test.catorv.com;
+        root   /var/www/catorv/htdocs;
+
+        fastcgi_split_path_info ^(.+\.php)(.*)$;
+
+        if (-f $request_filename/index.html) {
+            rewrite (.*) $1/index.html last;
+        }
+
+        if (-f $request_filename/index.php) {
+            rewrite (.*) $1/index.php last;
+        }
+
+        fastcgi_split_path_info ^(.+\.php)(.*)$;
+
+        if (!-e $document_root$fastcgi_script_name) {
+            rewrite ^(.*)$ /index.php$1 last;
+        }
+
+        location / {
+            index  index.html index.php index.htm;
+        }
+
+        error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+            root   html;
+        }
+
+        # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+        #
+        location ~ \.php {
+            fastcgi_pass   127.0.0.1:9000;
+            fastcgi_index  index.php;
+
+            fastcgi_split_path_info ^(.+\.php)(.*)$;
+            fastcgi_param   SCRIPT_FILENAME $document_root$fastcgi_script_name;
+            fastcgi_param   PATH_INFO       $fastcgi_path_info;
+            fastcgi_param   PATH_TRANSLATED $document_root$fastcgi_path_info;
+
+            fastcgi_intercept_errors on;
+            error_page 404 /404.html;
+
+            include        fastcgi_params;
+        }
+    }

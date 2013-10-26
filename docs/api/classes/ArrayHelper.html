@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>API Documentation</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+    <script src="http://code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">API Documentation</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                    <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                    </ul>
+                    </li>
+                    <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                    <i class="icon-list-alt"></i>&#160;Errors
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                    <i class="icon-list-alt"></i>&#160;Markers
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-101969995"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-101969995" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/ICache.html">ICache</a></li>
+                                                    <li class="interface"><a href="../classes/Debugger.html">Debugger</a></li>
+                                                    <li class="interface"><a href="../classes/ILog.html">ILog</a></li>
+                                                                                                    <li class="class"><a href="../classes/FileCache.html">FileCache</a></li>
+                                                    <li class="class"><a href="../classes/MemcacheCache.html">MemcacheCache</a></li>
+                                                    <li class="class"><a href="../classes/V.html">V</a></li>
+                                                    <li class="class"><a href="../classes/Controller.html">Controller</a></li>
+                                                    <li class="class"><a href="../classes/Language.html">Language</a></li>
+                                                    <li class="class"><a href="../classes/AResponse.html">AResponse</a></li>
+                                                    <li class="class"><a href="../classes/VeeBase.html">VeeBase</a></li>
+                                                    <li class="class"><a href="../classes/DbMysqlAdapter.html">DbMysqlAdapter</a></li>
+                                                    <li class="class"><a href="../classes/DbPdoMysqlAdapter.html">DbPdoMysqlAdapter</a></li>
+                                                    <li class="class"><a href="../classes/Db.html">Db</a></li>
+                                                    <li class="class"><a href="../classes/ADbAdapter.html">ADbAdapter</a></li>
+                                                    <li class="class"><a href="../classes/DbPdoSuperAdapter.html">DbPdoSuperAdapter</a></li>
+                                                    <li class="class"><a href="../classes/DbQuery.html">DbQuery</a></li>
+                                                    <li class="class"><a href="../classes/DbEntity.html">DbEntity</a></li>
+                                                    <li class="class"><a href="../classes/FirephpDebugger.html">FirephpDebugger</a></li>
+                                                    <li class="class"><a href="../classes/HtmlDebugger.html">HtmlDebugger</a></li>
+                                                    <li class="class"><a href="../classes/LogDebugger.html">LogDebugger</a></li>
+                                                    <li class="class"><a href="../classes/TextDebugger.html">TextDebugger</a></li>
+                                                    <li class="class"><a href="../classes/ArrayHelper.html">ArrayHelper</a></li>
+                                                    <li class="class"><a href="../classes/AuthHelper.html">AuthHelper</a></li>
+                                                    <li class="class"><a href="../classes/CorrectHelper.html">CorrectHelper</a></li>
+                                                    <li class="class"><a href="../classes/CrypterHelper.html">CrypterHelper</a></li>
+                                                    <li class="class"><a href="../classes/CsvHelper.html">CsvHelper</a></li>
+                                                    <li class="class"><a href="../classes/CurlHelper.html">CurlHelper</a></li>
+                                                    <li class="class"><a href="../classes/DataHelper.html">DataHelper</a></li>
+                                                    <li class="class"><a href="../classes/DbEntityHelper.html">DbEntityHelper</a></li>
+                                                    <li class="class"><a href="../classes/ExtjsHelper.html">ExtjsHelper</a></li>
+                                                    <li class="class"><a href="../classes/HttpHelper.html">HttpHelper</a></li>
+                                                    <li class="class"><a href="../classes/POP3.html">POP3</a></li>
+                                                    <li class="class"><a href="../classes/SMTP.html">SMTP</a></li>
+                                                    <li class="class"><a href="../classes/MailHelper.html">MailHelper</a></li>
+                                                    <li class="class"><a href="../classes/phpmailerException.html">phpmailerException</a></li>
+                                                    <li class="class"><a href="../classes/OAuthHelper.html">OAuthHelper</a></li>
+                                                    <li class="class"><a href="../classes/SecurityHelper.html">SecurityHelper</a></li>
+                                                    <li class="class"><a href="../classes/SimpleHtmlDomHelper.html">SimpleHtmlDomHelper</a></li>
+                                                    <li class="class"><a href="../classes/SimpleHtmlDomNode.html">SimpleHtmlDomNode</a></li>
+                                                    <li class="class"><a href="../classes/StringHelper.html">StringHelper</a></li>
+                                                    <li class="class"><a href="../classes/UploadHelper.html">UploadHelper</a></li>
+                                                    <li class="class"><a href="../classes/ValidateHelper.html">ValidateHelper</a></li>
+                                                    <li class="class"><a href="../classes/DbLog.html">DbLog</a></li>
+                                                    <li class="class"><a href="../classes/FileLog.html">FileLog</a></li>
+                                                    <li class="class"><a href="../classes/MemcacheLog.html">MemcacheLog</a></li>
+                                                    <li class="class"><a href="../classes/CsvResponse.html">CsvResponse</a></li>
+                                                    <li class="class"><a href="../classes/ExcelResponse.html">ExcelResponse</a></li>
+                                                    <li class="class"><a href="../classes/ExtjsResponse.html">ExtjsResponse</a></li>
+                                                    <li class="class"><a href="../classes/HtmlResponse.html">HtmlResponse</a></li>
+                                                    <li class="class"><a href="../classes/JsonResponse.html">JsonResponse</a></li>
+                                                    <li class="class"><a href="../classes/NullResponse.html">NullResponse</a></li>
+                                                    <li class="class"><a href="../classes/SmartyResponse.html">SmartyResponse</a></li>
+                                                    <li class="class"><a href="../classes/VeeResponse.html">VeeResponse</a></li>
+                                                    <li class="class"><a href="../classes/XmlResponse.html">XmlResponse</a></li>
+                                                    <li class="class"><a href="../classes/C.html">C</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/default.html">\</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\</small>ArrayHelper</h1>
+                    <p><em>数组工具类</em></p>
+                    
+
+
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/ArrayHelper.html#method_search" class="">search()</a><br />
+                                                                    <a href="../classes/ArrayHelper.html#method_insert" class="">insert()</a><br />
+                                                                    <a href="../classes/ArrayHelper.html#method_delete" class="">delete()</a><br />
+                                                                    <a href="../classes/ArrayHelper.html#method_toTree" class="">toTree()</a><br />
+                                                                    <a href="../classes/ArrayHelper.html#method_arrayToHashmap" class="">arrayToHashmap()</a><br />
+                                                                    <a href="../classes/ArrayHelper.html#method_getCols" class="">getCols()</a><br />
+                                                                    <a href="../classes/ArrayHelper.html#method_groupBy" class="">groupBy()</a><br />
+                                                                    <a href="../classes/ArrayHelper.html#method_groupBy2" class="">groupBy2()</a><br />
+                                                                    <a href="../classes/ArrayHelper.html#method_sortByMultiCols" class="">sortByMultiCols()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No public properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <em>No protected methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No protected properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <em>No private methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No private properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/helpers.ArrayHelper.class.php.html"><div class="path-wrapper">helpers/ArrayHelper.class.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">\vee-php\helpers</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                    <div class="namespace-wrapper">\ArrayHelper</div>
+                            </dd>
+
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr>
+                            <th>
+                                author
+                            </th>
+                            <td>
+                                                                    <p>魏永增 Cator Vee <a href="&#x6d;&#97;&#105;&#x6c;&#x74;&#111;&#58;&#x63;&#x61;&#116;o&#x72;&#119;&#101;&#x69;&#x40;&#103;&#109;&#x61;&#x69;&#108;.&#x63;&#111;&#109;">&#x63;&#x61;&#116;o&#x72;&#119;&#101;&#x69;&#x40;&#103;&#109;&#x61;&#x69;&#108;.&#x63;&#111;&#109;</a></p>
+
+                                                            </td>
+                        </tr>
+                                        </table>
+                </aside>
+            </div>
+
+                        
+                        
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_search" name="method_search" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">search()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">search( <span class="argument">$array</span>, mixed <span class="argument">$value</span>, mixed <span class="argument">$keys</span>, boolean <span class="argument">$onlyFirst</span>) : mixed</pre>
+                <p><em>搜索数组中符合条件的值</em></p>
+                <p>如果$keys=null且$onlyFirst=true的情况建议使用内建函数array_search()代替该方法</p>
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$array</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$value</td>
+                                <td><p>要查询的值</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$keys</td>
+                                <td><p>深入搜索的键列表,不深入搜索则赋值为null,值可以是字符串或字符串数组类型</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$onlyFirst</td>
+                                <td><p>是否只搜索第一个</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                            &mdash; <p>搜索到一个则返回该数组元素,搜索到两个以上则返回结果数组,否则返回-1</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_insert" name="method_insert" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">insert()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">insert( <span class="argument">$array</span>, string <span class="argument">$key</span>, mixed <span class="argument">$newValue</span>, boolean <span class="argument">$before</span>) : boolean</pre>
+                <p><em>插入指定的$key值前插入数据$value(由于处理结束后数组将变成数值索引,所以该函数适用于数值索引数组)</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$array</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$key</td>
+                                <td><p>键值,设置为NULL可以让数据添加到数组尾部</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$newValue</td>
+                                <td><p>值</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$before</td>
+                                <td><p>是否插入在指定$key之前</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                            &mdash; <p>如果找到$key并插入成功则返回true,否则返回false,并把数据添加到数组尾部</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_delete" name="method_delete" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">delete()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">delete( <span class="argument">$array</span>, string <span class="argument">$keys</span>)</pre>
+                <p><em>删除key为指定的key里的值</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$array</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$keys</td>
+                                <td><p>键值可以是数组</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_toTree" name="method_toTree" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">toTree()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">toTree(array <span class="argument">$arr</span>, string <span class="argument">$key_node_id</span>, string <span class="argument">$key_parent_id</span>, string <span class="argument">$key_children</span>, boolean <span class="argument">$refs</span>)</pre>
+                <p><em>将一个平面的二维数组按照指定的字段转换为树状结构</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$arr</td>
+                                <td><p>数据源</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$key_node_id</td>
+                                <td><p>节点ID字段名</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$key_parent_id</td>
+                                <td><p>节点父ID字段名</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$key_children</td>
+                                <td><p>保存子节点的字段名</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$refs</td>
+                                <td><p>是否在返回结果中包含节点引用
+return array 树形结构的数组</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_arrayToHashmap" name="method_arrayToHashmap" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">arrayToHashmap()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">arrayToHashmap(array <span class="argument">$arr</span>, string <span class="argument">$keyField</span>, string <span class="argument">$valueField</span>) : array</pre>
+                <p><em>将一个二维数组转换为 hashmap</em></p>
+                <p>如果省略 $valueField 参数，则转换结果每一项为包含该项所有数据的数组。</p>
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$arr</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$keyField</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$valueField</td>
+                                <td>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getCols" name="method_getCols" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getCols()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getCols(array <span class="argument">$arr</span>, string <span class="argument">$col</span>) : array</pre>
+                <p><em>从一个二维数组中返回指定键的所有值</em></p>
+                <p>用法：</p>
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$arr</td>
+                                <td><p>数据源</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$col</td>
+                                <td><p>要查询的键</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>包含指定键所有值的数组</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            code
+                        </th>
+                        <td>
+                                                            <p>php
+$rows = array(
+    array('id' => 1, 'value' => '1-1'),
+    array('id' => 2, 'value' => '2-1'),
+);
+$values = ArrayUtil::getCols($rows, 'value');
+dump($values);
+  // 输出结果为
+  // array(
+  //   '1-1',
+  //   '2-1',
+  // )</p>
+
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            endcode
+                        </th>
+                        <td>
+                                                            
+
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_groupBy" name="method_groupBy" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">groupBy()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">groupBy(array <span class="argument">$arr</span>, string <span class="argument">$key_field</span>) : array</pre>
+                <p><em>将一个二维数组按照指定字段的值分组</em></p>
+                <p>用法：</p>
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$arr</td>
+                                <td><p>数据源</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$key_field</td>
+                                <td><p>作为分组依据的键名</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>分组后的结果</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            code
+                        </th>
+                        <td>
+                                                            <p>php
+$rows = array(
+    array('id' => 1, 'value' => '1-1', 'parent' => 1),
+    array('id' => 2, 'value' => '2-1', 'parent' => 1),
+    array('id' => 3, 'value' => '3-1', 'parent' => 1),
+    array('id' => 4, 'value' => '4-1', 'parent' => 2),
+    array('id' => 5, 'value' => '5-1', 'parent' => 2),
+    array('id' => 6, 'value' => '6-1', 'parent' => 3),
+);
+$values = ArrayUtil::groupBy($rows, 'parent');
+dump($values);
+  // 按照 parent 分组的输出结果为
+  // array(
+  //   1 => array(
+  //        array('id' => 1, 'value' => '1-1', 'parent' => 1),
+  //        array('id' => 2, 'value' => '2-1', 'parent' => 1),
+  //        array('id' => 3, 'value' => '3-1', 'parent' => 1),
+  //   ),
+  //   2 => array(
+  //        array('id' => 4, 'value' => '4-1', 'parent' => 2),
+  //        array('id' => 5, 'value' => '5-1', 'parent' => 2),
+  //   ),
+  //   3 => array(
+  //        array('id' => 6, 'value' => '6-1', 'parent' => 3),
+  //   ),
+  // )</p>
+
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            endcode
+                        </th>
+                        <td>
+                                                            
+
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_groupBy2" name="method_groupBy2" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">groupBy2()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">groupBy2( <span class="argument">$arr</span>,  <span class="argument">$key_field</span>)</pre>
+                <p><em></em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$arr</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$key_field</td>
+                                <td>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_sortByMultiCols" name="method_sortByMultiCols" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">sortByMultiCols()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">sortByMultiCols(array <span class="argument">$rowset</span>, array <span class="argument">$args</span>) : array</pre>
+                <p><em>将一个二维数组按照多个列进行排序，类似 SQL 语句中的 ORDER BY</em></p>
+                <p>用法：</p>
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$rowset</td>
+                                <td><p>要排序的数组</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$args</td>
+                                <td><p>排序的键</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>排序后的数组</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            code
+                        </th>
+                        <td>
+                                                            <p>php
+$rows = ArrayUtil::sortByMultiCols($rows, array(
+    'parent' => SORT_ASC,
+    'name' => SORT_DESC,
+));</p>
+
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            endcode
+                        </th>
+                        <td>
+                                                            
+
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">ArrayHelper.class.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/helpers/ArrayHelper.class.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="">Errors</a></li>
+                                    <li><a href="">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on 
+Warning: date_default_timezone_get(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. in /usr/local/php-5.5.4/lib/php/phpDocumentor/vendor/twig/twig/lib/Twig/Extension/Core.php on line 66
+October 6th, 2013 at 15:21.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>
