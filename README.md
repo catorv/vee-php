@@ -73,11 +73,15 @@ a lightweight, simple, flexible, fast PHP MVC framework.
 
 在代码中可以通过
 
-    V::loadModel('ModelName');
+```php
+V::loadModel('ModelName');
+```
    
 或者
 
-    V::loadModel('path/to/ModelName'); // 如果类文件存放在`mvc/model`子目录中的话
+```php
+V::loadModel('path/to/ModelName'); // 如果类文件存放在`mvc/model`子目录中的话
+```
     
 加载模型类文件。
 
